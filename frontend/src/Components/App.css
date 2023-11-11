@@ -1,0 +1,18 @@
+@import url("https://fonts.googleapis.com/css2?family=Barlow:wght@600&family=Fraunces:wght@700;900&family=Rubik&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Kawi&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input-new-form {
+  @apply flex flex-col p-3 border m-3 w-10/12;
+}
+
+.label-form {
+  @apply p-3;
+}
+
+.button-new-form {
+  @apply mx-auto w-[150px] h-[50px] bg-pink-600 text-white mb-10 hover:bg-pink-500 self-center rounded-lg;
+}
