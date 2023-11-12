@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import RecipeHome from "./Recipe/RecipeHome";
 import RecipeDetails from "./Recipe/RecipeDetails";
@@ -13,7 +13,8 @@ function App() {
         <Route index element={<RecipeHome />} />
         <Route path="/new" element={<RecipeForm />} />
         <Route path="/fav" element={<RecipeFav />} />
-        <Route path="/recipe/:id" element={<RecipeDetails recipe={null} />} />
+        <Route path="/recipe/:id" element={<RecipeDetails />} />
+        <Route path="/edit/:id" element={<RecipeForm />} />
       </Routes>
     </div>
   );

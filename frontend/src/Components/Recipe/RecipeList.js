@@ -8,13 +8,17 @@ import favempty from "../../images/favEmpty.png";
 const url = "http://localhost:4000/recipe/";
 
 const RecipeList = ({ recipes }) => {
+  const location = useLocation();
+
   return (
     <div className=" mx-auto w-11/12 mt-5">
-      <Link to={`/new`} style={{ textDecoration: "none" }}>
-        <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:bg-pink-500">
-          Add New Recipe
-        </div>
-      </Link>
+      {!location.pathname.includes("fav") && (
+        <Link to={`/new`} style={{ textDecoration: "none" }}>
+          <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:bg-pink-500">
+            Add New Recipe
+          </div>
+        </Link>
+      )}
       <div
         style={{
           display: "grid",
@@ -22,11 +26,12 @@ const RecipeList = ({ recipes }) => {
           gap: 20,
         }}
       >
-        {recipes.map((item, index) => (
-          <div key={index} className="flex justify-center  ">
-            <RecipeCard item={item} />
-          </div>
-        ))}
+        {recipes.length > 0 &&
+          recipes.map((item, index) => (
+            <div key={index} className="flex justify-center  ">
+              <RecipeCard item={item} />
+            </div>
+          ))}
       </div>
     </div>
   );

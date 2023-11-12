@@ -1,12 +1,13 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import hummus from "../../images/hummus.jpg";
 import clock from "../../images/clock.png";
 import person from "../../images/person.png";
 import dot from "../../images/dot.png";
 import del from "../../images/del2.png";
+import edit from "../../images/edit2.png";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -68,8 +69,15 @@ const RecipeDetails = () => {
             onClick={deleteCurrentPlayer}
             src={del}
             alt=""
-            className="w-6 absolute top-5 right-5 cursor-pointer"
+            className="w-8 absolute top-5 right-5 cursor-pointer"
           />
+          <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
+            <img
+              src={edit}
+              alt=""
+              className="w-8 absolute top-5 right-16 cursor-pointer"
+            />
+          </Link>
           <p className="absolute bottom-2 left-1 font-custom text-3xl ml-3">
             {recipe.title}
           </p>

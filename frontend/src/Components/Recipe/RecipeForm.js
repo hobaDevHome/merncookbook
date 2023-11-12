@@ -1,18 +1,23 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 
 // @ts-ignore
 import nnn from "../../images/new.jpg";
+import Navbar from "./Navbar";
 
-const url = "http://localhost:4000/recipes";
+const putURL = "http://localhost:4000/recipes";
+
+const getURL = "http://localhost:4000/recipe/";
 
 const RecipeForm = () => {
+  const [isEdit, setisEdit] = useState(false);
+  const [currentRecipe, setcurrentRecipe] = useState({});
   const [title, settitle] = useState("");
   const [ingredient1, setingredient1] = useState("");
   const [ingredient2, setingredient2] = useState("");
-  const [ingredient3, setingredient3] = useState("not provided");
-  const [ingredient4, setingredient4] = useState("not provided");
+  const [ingredient3, setingredient3] = useState("");
+  const [ingredient4, setingredient4] = useState("");
   const [method, setmethod] = useState("");
   const [category, setcategory] = useState("");
   const [servings, setservings] = useState(0);
@@ -21,12 +26,44 @@ const RecipeForm = () => {
   const [favourite, setfavourite] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    let isEditing = location.pathname.includes("edit");
+    if (isEditing) {
+      let pathList = location.pathname.split("/");
+      let id = pathList[pathList.length - 1];
+
+      setisEdit(isEditing);
+
+      axios
+        .get(getURL + id)
+        .then((Response) => {
+          setcurrentRecipe(Response.data);
+          console.log(Response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  }, [isEdit, location.pathname]);
+
+  useEffect(() => {
+    if (currentRecipe) {
+      if (currentRecipe.title) settitle(currentRecipe.title);
+      if (currentRecipe.ingredient1) settitle(currentRecipe.ingredient1);
+      if (currentRecipe.ingredient2) settitle(currentRecipe.ingredient2);
+      if (currentRecipe.ingredient3) settitle(currentRecipe.ingredient3);
+      if (currentRecipe.ingredient4) settitle(currentRecipe.ingredient4);
+      if (currentRecipe.method) settitle(currentRecipe.method);
+    }
+  }, [isEdit, currentRecipe]);
 
   const submitRecipe = (event) => {
     event.preventDefault();
 
     axios
-      .post(url, {
+      .post(putURL, {
         title: title,
         ingredient1: ingredient1,
         ingredient2: ingredient2,
@@ -45,6 +82,7 @@ const RecipeForm = () => {
 
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
+      <Navbar />
       <div className="flex flex-col ">
         <div className="relative">
           <img
@@ -56,6 +94,7 @@ const RecipeForm = () => {
 
         <form onSubmit={submitRecipe}>
           <label className="label-form"> Title:</label>
+
           <input
             type="text"
             onChange={(e) => settitle(e.target.value)}
@@ -96,11 +135,11 @@ const RecipeForm = () => {
             value={ingredient4}
             className="input-new-form"
           />
-          <label className="label-form">method:</label>
+          <label className="label-form">Instructions:</label>
 
           <textarea
             onChange={(e) => setmethod(e.target.value)}
-            placeholder="method"
+            placeholder="Instructions goes here"
             value={method}
             className="input-new-form"
             rows={6}

@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 export const RecipeSchema = new Schema({
   title: {
     type: String,
+    default: "recipe",
     required: true,
   },
   ingredient1: {
@@ -13,7 +14,6 @@ export const RecipeSchema = new Schema({
   },
   ingredient2: {
     type: String,
-    required: true,
   },
   method: {
     type: String,
@@ -38,6 +38,7 @@ export const RecipeSchema = new Schema({
 
   category: {
     type: String,
+    default: "all",
   },
   favourite: {
     type: Boolean,

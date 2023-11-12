@@ -5,6 +5,7 @@ import RecipeList from "./RecipeList";
 // @ts-ignore
 import fav from "../../images/fav.jpg";
 import axios from "axios";
+import Navbar from "./Navbar";
 
 const url = "http://localhost:4000/recipes";
 
@@ -27,6 +28,7 @@ function RecipeFav() {
 
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
+      <Navbar />
       <div className="flex flex-col ">
         <div className="relative">
           <img
