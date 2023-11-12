@@ -20,7 +20,6 @@ const RecipeForm = () => {
   const [ingredient3, setingredient3] = useState("");
   const [ingredient4, setingredient4] = useState("");
   const [method, setmethod] = useState("");
-
   const [category, setcategory] = useState("all");
   const [servings, setservings] = useState(1);
   const [time, settime] = useState(15);
@@ -196,7 +195,7 @@ const RecipeForm = () => {
             <div class="select">
               <select name="servings" id="servings" onChange={handleSelectCat}>
                 <option value="all">All</option>
-                <option value="low">Low Carb</option>
+                <option value="carb">Low Carb</option>
                 <option value="fat">Low Fat</option>
                 <option value="veg">Vegetarian</option>
               </select>

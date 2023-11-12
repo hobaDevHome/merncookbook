@@ -11,6 +11,7 @@ const url = "http://localhost:4000/recipe/";
 
 const RecipeList = ({ recipes }) => {
   const [currentList, setcurrentList] = useState([]);
+  const [currentCat, setCurrentCat] = useState("all");
   const location = useLocation();
 
   useEffect(() => {
@@ -18,6 +19,17 @@ const RecipeList = ({ recipes }) => {
       setcurrentList(recipes);
     }
   }, [recipes]);
+
+  useEffect(() => {
+    if (recipes) {
+      if (currentCat !== "all") {
+        let temp = recipes.filter((e) => e.category === currentCat);
+        setcurrentList(temp);
+      } else {
+        setcurrentList(recipes);
+      }
+    }
+  }, [currentCat]);
 
   const deleteRecipe = (id) => {
     axios
@@ -32,14 +44,32 @@ const RecipeList = ({ recipes }) => {
       });
   };
 
+  const handleSelectCat = (e) => {
+    setCurrentCat(e.target.value);
+  };
+
+  console.log("currentcat", currentCat);
   return (
     <div className=" mx-auto w-11/12 mt-5">
       {!location.pathname.includes("fav") && (
-        <Link to={`/new`} style={{ textDecoration: "none" }}>
-          <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:bg-pink-500">
-            Add New Recipe
+        <div className="flex justify-between">
+          <Link to={`/new`} style={{ textDecoration: "none" }}>
+            <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:bg-pink-500">
+              Add New Recipe
+            </div>
+          </Link>
+          <div className="flex items-center mb-5">
+            <label className="label-form">Choose food category</label>
+            <div class="select">
+              <select name="servings" id="servings" onChange={handleSelectCat}>
+                <option value="all">All</option>
+                <option value="carb">Low Carb</option>
+                <option value="fat">Low Fat</option>
+                <option value="veg">Vegetarian</option>
+              </select>
+            </div>
           </div>
-        </Link>
+        </div>
       )}
       <div
         style={{
