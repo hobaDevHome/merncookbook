@@ -1,14 +1,36 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import favfill from "../../images/favFill.png";
 import favempty from "../../images/favEmpty.png";
+import del from "../../images/del2.png";
 
 const url = "http://localhost:4000/recipe/";
 
 const RecipeList = ({ recipes }) => {
+  const [currentList, setcurrentList] = useState([]);
   const location = useLocation();
+
+  useEffect(() => {
+    if (recipes) {
+      setcurrentList(recipes);
+    }
+  }, [recipes]);
+
+  const deleteRecipe = (id) => {
+    axios
+      .delete(`${url}${id}`)
+      .then((Response) => {
+        console.log(`Deleted recipe `);
+        let temp = currentList.filter((e) => e._id !== id);
+        setcurrentList(temp);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className=" mx-auto w-11/12 mt-5">
@@ -26,10 +48,11 @@ const RecipeList = ({ recipes }) => {
           gap: 20,
         }}
       >
-        {recipes.length > 0 &&
-          recipes.map((item, index) => (
+        {currentList &&
+          currentList.length > 0 &&
+          currentList.map((item, index) => (
             <div key={index} className="flex justify-center  ">
-              <RecipeCard item={item} />
+              <RecipeCard item={item} deleteRecipe={deleteRecipe} />
             </div>
           ))}
       </div>
@@ -39,19 +62,21 @@ const RecipeList = ({ recipes }) => {
 
 export default RecipeList;
 
-const RecipeCard = (item) => {
-  const [isFaved, setisFaved] = useState(item.item.favourite);
+const RecipeCard = ({ item, deleteRecipe }) => {
+  const [isFaved, setisFaved] = useState(false);
 
-  let hardness = 2;
-  let hardFill = new Array(hardness).fill(0);
-  let hardEmpty = new Array(5 - hardness).fill(0);
-  // const location = useLocation();
+  useEffect(() => {
+    if (item) {
+      setisFaved(item.favourite);
+    }
+  }, []);
 
-  // console.log("location", location.pathname);
-
+  if (!item) {
+    return null;
+  }
   const toggleFav = () => {
     axios
-      .put(`${url}${item.item._id}`, {
+      .put(`${url}${item._id}`, {
         favourite: !isFaved,
       })
       .then((response) => {
@@ -63,6 +88,7 @@ const RecipeCard = (item) => {
       });
   };
 
+  console.log("isfaved", item.hardness);
   return (
     <div className="bg-pink-200 w-[280px] m-3 p-4 rounded relative">
       <img
@@ -71,28 +97,33 @@ const RecipeCard = (item) => {
         className="absolute top-6 right-6 w-8 cursor-pointer hover:scale-125 transition-all  duration-200 ease-out z-10"
         onClick={toggleFav}
       />
-      <Link to={`/recipe/${item.item._id}`} style={{ textDecoration: "none" }}>
+      <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img src="hummus.jpg" alt="" className="rounded " />
         </div>
         <p className="text-center text-lg font-custom font-bold mt-2 ">
-          {item.item.title}
+          {item.title}
         </p>
         <div className="flex items-center mt-3">
           <div>
             <img src="person.png" alt="" className=" w-5" />
           </div>
-          <div className="text-lg ml-2">3 Servings</div>
+          <div className="text-lg ml-2">
+            {item.servings ? item.servings : "-"} Serving
+          </div>
         </div>
         <div className="flex items-center mt-3">
           <div>
             <img src="clock.png" alt="" className=" w-5" />
           </div>
-          <div className="text-lg ml-2">25 min.</div>
+          <div className="text-lg ml-2">
+            {" "}
+            {item.time ? item.time : "-"} min.
+          </div>
         </div>
-        {item.item.hardness && (
+        {item.hardness && (
           <div className="flex items-center mt-3 mb-5">
-            {hardFill.map((e, index) => (
+            {new Array(item.hardness).fill(0).map((e, index) => (
               <img
                 src="hardFill.png"
                 alt=""
@@ -100,7 +131,7 @@ const RecipeCard = (item) => {
                 key={index}
               />
             ))}
-            {hardEmpty.map((e, index) => (
+            {new Array(5 - item.hardness).fill(0).map((e, index) => (
               <img
                 src="hardNoFill.png"
                 alt=""
@@ -111,6 +142,12 @@ const RecipeCard = (item) => {
           </div>
         )}
       </Link>
+      <img
+        onClick={() => deleteRecipe(item._id)}
+        src={del}
+        alt=""
+        className="w-6 absolute bottom-5 right-5 cursor-pointer hover:scale-125 transition-all ease-in"
+      />
     </div>
   );
 };

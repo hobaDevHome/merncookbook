@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -21,8 +22,8 @@ const RecipeForm = () => {
   const [method, setmethod] = useState("");
 
   const [category, setcategory] = useState("all");
-  const [servings, setservings] = useState(0);
-  const [time, settime] = useState(0);
+  const [servings, setservings] = useState(1);
+  const [time, settime] = useState(15);
   const [hardness, sethardness] = useState(1);
 
   const navigate = useNavigate();
@@ -197,9 +198,11 @@ const RecipeForm = () => {
           <div className="flex items-center">
             <label className="label-form">Recipe difficulty:</label>
             <select name="hard" id="hard" onChange={handleSelectHard}>
-              <option value="1">Easy</option>
-              <option value="2">Moderate</option>
-              <option value="3">Hard</option>
+              <option value="1">Very Easy</option>
+              <option value="2">Easy</option>
+              <option value="3">Moderate</option>
+              <option value="4">Hard</option>
+              <option value="5">Quite Difficult</option>
             </select>
           </div>
           <div className="flex items-center">

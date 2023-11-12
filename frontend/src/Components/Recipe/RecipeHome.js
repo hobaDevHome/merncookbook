@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import axios from "axios";
 import Navbar from "./Navbar";
+import cover from "../../images/cover.jpg";
 
 const url = "http://localhost:4000/recipes";
 
@@ -25,9 +26,10 @@ function RecipeHome() {
       <div className="flex flex-col ">
         <div className="relative">
           <img
-            src="cover.png"
+            src={cover}
             alt=""
-            className="w-11/12 mx-auto object-cover  mt-2"
+            style={{ width: "100%", height: 300 }}
+            className="w-11/12 mx-auto object-cover  mt-2 rounded-xl"
           />
           <div
             style={{ backgroundColor: "rgba(82, 82, 91, 0.7)" }}

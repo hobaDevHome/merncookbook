@@ -88,14 +88,18 @@ const RecipeDetails = () => {
               <div>
                 <img src={person} alt="" className=" w-5" />
               </div>
-              <div className="text-lg ml-2">3 servings</div>
+              <div className="text-lg ml-2">
+                {recipe.servings ? recipe.servings : "-"} Serving
+              </div>
             </div>
             <div className="w-[2px] h-[30px] bg-gray-300 ml-2 mr-2 mb-2"></div>
             <div className="flex items-center mt-3 justify-center mb-2">
               <div>
                 <img src={clock} alt="" className=" w-5" />
               </div>
-              <div className="text-lg ml-2">25 min.</div>
+              <div className="text-lg ml-2">
+                {recipe.time ? recipe.time : "-"} min.
+              </div>
             </div>
           </div>
         </div>
