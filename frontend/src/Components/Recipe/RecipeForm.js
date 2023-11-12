@@ -132,84 +132,98 @@ const RecipeForm = () => {
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
       <Navbar />
       <div className="flex flex-col ">
-        <div className="relative">
-          <img
-            src={nnn}
-            alt=""
-            style={{ width: "100%", height: 300, objectFit: "contain" }}
-          />
-        </div>
-
         <form onSubmit={submitRecipe}>
-          <label className="label-form"> Title:</label>
+          <div className="flex items-center">
+            <label className="label-form"> Title:</label>
 
-          <input
-            type="text"
-            onChange={(e) => settitle(e.target.value)}
-            placeholder="title"
-            value={title}
-            className="input-new-form"
-          />
+            <input
+              type="text"
+              onChange={(e) => settitle(e.target.value)}
+              placeholder="title"
+              value={title}
+              className="input-new-form"
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">ingredient1:</label>
+            <input
+              type="text"
+              onChange={(e) => setingredient1(e.target.value)}
+              placeholder="ingredient1"
+              value={ingredient1}
+              className="input-new-form"
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">ingredient2:</label>
+            <input
+              type="text"
+              onChange={(e) => setingredient2(e.target.value)}
+              placeholder="ingredient2"
+              value={ingredient2}
+              className="input-new-form"
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">ingredient3:</label>
+            <input
+              type="text"
+              onChange={(e) => setingredient3(e.target.value)}
+              placeholder="ingredient3"
+              value={ingredient3}
+              className="input-new-form"
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">ingredient4:</label>
+            <input
+              type="text"
+              onChange={(e) => setingredient4(e.target.value)}
+              placeholder="ingredient4"
+              value={ingredient4}
+              className="input-new-form"
+            />
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">Recipe category:</label>
 
-          <label className="label-form">ingredient1:</label>
-          <input
-            type="text"
-            onChange={(e) => setingredient1(e.target.value)}
-            placeholder="ingredient1"
-            value={ingredient1}
-            className="input-new-form"
-          />
+            <select name="cat" id="cat" onChange={handleSelectCat}>
+              <option value="all">All</option>
+              <option value="low">Low Carb</option>
+              <option value="fat">Low Fat</option>
+              <option value="veg">Vegetarian</option>
+            </select>
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">Recipe difficulty:</label>
+            <select name="hard" id="hard" onChange={handleSelectHard}>
+              <option value="1">Easy</option>
+              <option value="2">Moderate</option>
+              <option value="3">Hard</option>
+            </select>
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">How many servings:</label>
+            <select name="serv" id="serv" onChange={handleSelectServing}>
+              <option value="1">1 serving</option>
+              <option value="2">2 serving</option>
+              <option value="3">3 serving</option>
+              <option value="4">4 serving</option>
+              <option value="5">5 serving</option>
+              <option value="6">6 serving</option>
+            </select>
+          </div>
+          <div className="flex items-center">
+            <label className="label-form">Preparation time:</label>
+            <select name="time" id="time" onChange={handleSelectTime}>
+              <option value="15">15 min</option>
+              <option value="30">30 min</option>
+              <option value="45">45 min</option>
+              <option value="60">60 min</option>
+            </select>
+          </div>
 
-          <label className="label-form">ingredient2:</label>
-          <input
-            type="text"
-            onChange={(e) => setingredient2(e.target.value)}
-            placeholder="ingredient2"
-            value={ingredient2}
-            className="input-new-form"
-          />
-          <label className="label-form">ingredient3:</label>
-          <input
-            type="text"
-            onChange={(e) => setingredient3(e.target.value)}
-            placeholder="ingredient3"
-            value={ingredient3}
-            className="input-new-form"
-          />
-          <label className="label-form">ingredient4:</label>
-          <input
-            type="text"
-            onChange={(e) => setingredient4(e.target.value)}
-            placeholder="ingredient4"
-            value={ingredient4}
-            className="input-new-form"
-          />
           <label className="label-form">Instructions:</label>
-          <select name="cat" id="cat" onChange={handleSelectCat}>
-            <option value="all">All</option>
-            <option value="low">Low Carb</option>
-            <option value="fat">Low Fat</option>
-            <option value="veg">Vegetarian</option>
-          </select>
-          <select name="hard" id="hard" onChange={handleSelectHard}>
-            <option value="1">Easy</option>
-            <option value="2">Moderate</option>
-            <option value="3">Hard</option>
-          </select>
-          <select name="serv" id="serv" onChange={handleSelectServing}>
-            <option value="1">1 serving</option>
-            <option value="2">2 serving</option>
-            <option value="3">3 serving</option>
-            <option value="4">4 serving</option>
-            <option value="5">5 serving</option>
-            <option value="6">6 serving</option>
-          </select>
-          <select name="time" id="time" onChange={handleSelectTime}>
-            <option value="15">15 min</option>
-            <option value="30">30 min</option>
-            <option value="45">45 min</option>
-            <option value="60">60 min</option>
-          </select>
 
           <textarea
             onChange={(e) => setmethod(e.target.value)}
