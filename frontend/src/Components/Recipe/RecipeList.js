@@ -65,6 +65,8 @@ export default RecipeList;
 const RecipeCard = ({ item, deleteRecipe }) => {
   const [isFaved, setisFaved] = useState(false);
 
+  const location = useLocation();
+
   useEffect(() => {
     if (item) {
       setisFaved(item.favourite);
@@ -91,12 +93,14 @@ const RecipeCard = ({ item, deleteRecipe }) => {
   console.log("isfaved", item.hardness);
   return (
     <div className="bg-pink-200 w-[280px] m-3 p-4 rounded relative">
-      <img
-        src={isFaved ? favfill : favempty}
-        alt="favourite"
-        className="absolute top-6 right-6 w-8 cursor-pointer hover:scale-125 transition-all  duration-200 ease-out z-10"
-        onClick={toggleFav}
-      />
+      {!location.pathname.includes("fav") && (
+        <img
+          src={isFaved ? favfill : favempty}
+          alt="favourite"
+          className="absolute top-6 right-6 w-8 cursor-pointer hover:scale-125 transition-all  duration-200 ease-out z-10"
+          onClick={toggleFav}
+        />
+      )}
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img src="hummus.jpg" alt="" className="rounded " />
