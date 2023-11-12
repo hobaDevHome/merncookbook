@@ -192,7 +192,7 @@ const RecipeForm = () => {
           <div className="flex items-center mb-5">
             <label className="label-form">Recipe category:</label>
 
-            <div class="select">
+            <div className="select">
               <select name="servings" id="servings" onChange={handleSelectCat}>
                 <option value="all">All</option>
                 <option value="carb">Low Carb</option>
@@ -202,7 +202,7 @@ const RecipeForm = () => {
             </div>
 
             <label className="label-form">Recipe difficulty:</label>
-            <div class="select">
+            <div className="select">
               <select name="servings" id="servings" onChange={handleSelectHard}>
                 <option value="1">Very Easy</option>
                 <option value="2">Easy</option>
@@ -214,7 +214,7 @@ const RecipeForm = () => {
           </div>
           <div className="flex items-center mb-5">
             <label className="label-form">How many servings:</label>
-            <div class="select">
+            <div className="select">
               <select
                 name="servings"
                 id="servings"
@@ -230,7 +230,7 @@ const RecipeForm = () => {
             </div>
 
             <label className="label-form">Preparation time:</label>
-            <div class="select">
+            <div className="select">
               <select name="time" id="time" onChange={handleSelectTime}>
                 <option value="15">15 min</option>
                 <option value="30">30 min</option>

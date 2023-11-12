@@ -48,7 +48,6 @@ const RecipeList = ({ recipes }) => {
     setCurrentCat(e.target.value);
   };
 
-  console.log("currentcat", currentCat);
   return (
     <div className=" mx-auto w-11/12 mt-5">
       {!location.pathname.includes("fav") && (
@@ -60,7 +59,7 @@ const RecipeList = ({ recipes }) => {
           </Link>
           <div className="flex items-center mb-5">
             <label className="label-form">Choose food category</label>
-            <div class="select">
+            <div className="select">
               <select name="servings" id="servings" onChange={handleSelectCat}>
                 <option value="all">All</option>
                 <option value="carb">Low Carb</option>
@@ -120,7 +119,6 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       });
   };
 
-  console.log("isfaved", item.hardness);
   return (
     <div className="bg-pink-200 w-[280px] m-3 p-4 rounded relative">
       {!location.pathname.includes("fav") && (
