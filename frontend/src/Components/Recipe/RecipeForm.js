@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // @ts-ignore
 import nnn from "../../images/new.jpg";
@@ -19,11 +19,11 @@ const RecipeForm = () => {
   const [ingredient3, setingredient3] = useState("");
   const [ingredient4, setingredient4] = useState("");
   const [method, setmethod] = useState("");
-  const [category, setcategory] = useState("");
+
+  const [category, setcategory] = useState("all");
   const [servings, setservings] = useState(0);
   const [time, settime] = useState(0);
-  const [hardness, sethardness] = useState(0);
-  const [favourite, setfavourite] = useState(false);
+  const [hardness, sethardness] = useState(1);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -40,7 +40,6 @@ const RecipeForm = () => {
         .get(getURL + id)
         .then((Response) => {
           setcurrentRecipe(Response.data);
-          console.log(Response.data);
         })
         .catch((error) => {
           console.log(error);
@@ -51,34 +50,83 @@ const RecipeForm = () => {
   useEffect(() => {
     if (currentRecipe) {
       if (currentRecipe.title) settitle(currentRecipe.title);
-      if (currentRecipe.ingredient1) settitle(currentRecipe.ingredient1);
-      if (currentRecipe.ingredient2) settitle(currentRecipe.ingredient2);
-      if (currentRecipe.ingredient3) settitle(currentRecipe.ingredient3);
-      if (currentRecipe.ingredient4) settitle(currentRecipe.ingredient4);
-      if (currentRecipe.method) settitle(currentRecipe.method);
+      if (currentRecipe.ingredient1) setingredient1(currentRecipe.ingredient1);
+      if (currentRecipe.ingredient2) setingredient2(currentRecipe.ingredient2);
+      if (currentRecipe.ingredient3) setingredient3(currentRecipe.ingredient3);
+      if (currentRecipe.ingredient4) setingredient4(currentRecipe.ingredient4);
+      if (currentRecipe.method) setmethod(currentRecipe.method);
+      if (currentRecipe.category) setcategory(currentRecipe.category);
+      if (currentRecipe.hardness) sethardness(currentRecipe.hardness);
+      if (currentRecipe.servings) setservings(currentRecipe.servings);
+      if (currentRecipe.time) settime(currentRecipe.time);
     }
   }, [isEdit, currentRecipe]);
 
   const submitRecipe = (event) => {
     event.preventDefault();
 
-    axios
-      .post(putURL, {
-        title: title,
-        ingredient1: ingredient1,
-        ingredient2: ingredient2,
-        ingredient3: ingredient3,
-        ingredient4: ingredient4,
-        method: method,
-      })
-      .then((response) => {
-        console.log(response);
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (isEdit) {
+      let pathList = location.pathname.split("/");
+      let id = pathList[pathList.length - 1];
+      axios
+        .put(`${getURL}${id}`, {
+          title: title,
+          ingredient1: ingredient1,
+          ingredient2: ingredient2,
+          ingredient3: ingredient3,
+          ingredient4: ingredient4,
+          category: category,
+          hardness: hardness,
+          servings: servings,
+          time: time,
+          method: method,
+        })
+        .then((response) => {
+          console.log("recipe updated");
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      axios
+        .post(putURL, {
+          title: title,
+          ingredient1: ingredient1,
+          ingredient2: ingredient2,
+          ingredient3: ingredient3,
+          ingredient4: ingredient4,
+          category: category,
+          hardness: hardness,
+          servings: servings,
+          time: time,
+          method: method,
+        })
+        .then((response) => {
+          navigate("/");
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
   };
+
+  const handleSelectCat = (e) => {
+    setcategory(e.target.value);
+  };
+
+  const handleSelectHard = (e) => {
+    sethardness(+e.target.value);
+  };
+  const handleSelectServing = (e) => {
+    setservings(+e.target.value);
+  };
+
+  const handleSelectTime = (e) => {
+    settime(+e.target.value);
+  };
+
+  console.log(hardness);
 
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
@@ -102,6 +150,7 @@ const RecipeForm = () => {
             value={title}
             className="input-new-form"
           />
+
           <label className="label-form">ingredient1:</label>
           <input
             type="text"
@@ -136,6 +185,31 @@ const RecipeForm = () => {
             className="input-new-form"
           />
           <label className="label-form">Instructions:</label>
+          <select name="cat" id="cat" onChange={handleSelectCat}>
+            <option value="all">All</option>
+            <option value="low">Low Carb</option>
+            <option value="fat">Low Fat</option>
+            <option value="veg">Vegetarian</option>
+          </select>
+          <select name="hard" id="hard" onChange={handleSelectHard}>
+            <option value="1">Easy</option>
+            <option value="2">Moderate</option>
+            <option value="3">Hard</option>
+          </select>
+          <select name="serv" id="serv" onChange={handleSelectServing}>
+            <option value="1">1 serving</option>
+            <option value="2">2 serving</option>
+            <option value="3">3 serving</option>
+            <option value="4">4 serving</option>
+            <option value="5">5 serving</option>
+            <option value="6">6 serving</option>
+          </select>
+          <select name="time" id="time" onChange={handleSelectTime}>
+            <option value="15">15 min</option>
+            <option value="30">30 min</option>
+            <option value="45">45 min</option>
+            <option value="60">60 min</option>
+          </select>
 
           <textarea
             onChange={(e) => setmethod(e.target.value)}

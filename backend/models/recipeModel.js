@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 export const RecipeSchema = new Schema({
   title: {
     type: String,
-    default: "recipe",
     required: true,
   },
   ingredient1: {
@@ -35,7 +34,6 @@ export const RecipeSchema = new Schema({
     type: Number,
     enum: [1, 2, 3],
   },
-
   category: {
     type: String,
     default: "all",

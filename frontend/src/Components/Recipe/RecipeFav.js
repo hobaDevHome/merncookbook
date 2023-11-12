@@ -16,7 +16,6 @@ function RecipeFav() {
       .get(url)
       .then((Response) => {
         if (Response.data) {
-          console.log(Response.data);
           let temp = Response.data.filter((e) => e.favourite);
           setRecipes(temp);
         }

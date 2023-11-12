@@ -8,6 +8,7 @@ import person from "../../images/person.png";
 import dot from "../../images/dot.png";
 import del from "../../images/del2.png";
 import edit from "../../images/edit2.png";
+import Navbar from "./Navbar";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -42,7 +43,7 @@ const RecipeDetails = () => {
 
   const deleteCurrentPlayer = () => {
     // setCurrentPlayer(id);
-    console.log("recipe id : ", id);
+
     axios
       .delete(`${url}${id}`)
       .then((Response) => {
@@ -56,6 +57,7 @@ const RecipeDetails = () => {
 
   return (
     <div className="continer max-w-screen-xl mx-auto">
+      <Navbar />
       <div className="flex flex-col ">
         {/* picture section */}
         <div className="relative">

@@ -50,7 +50,6 @@ const RecipeCard = (item) => {
   // console.log("location", location.pathname);
 
   const toggleFav = () => {
-    console.log("recipe id : ", item.item._id);
     axios
       .put(`${url}${item.item._id}`, {
         favourite: !isFaved,

@@ -3,10 +3,18 @@ import { Link, useLocation } from "react-router-dom";
 
 const Navbar = () => {
   let loc = useLocation();
-  let acitve = "home";
-  if (loc.pathname.includes("new")) acitve = "new";
-  if (loc.pathname.includes("fav")) acitve = "fav";
-  console.log(acitve);
+  let acitve = "";
+
+  if (loc.pathname.includes("new")) {
+    acitve = "new";
+  } else if (loc.pathname.includes("fav")) {
+    acitve = "fav";
+  } else if (loc.pathname.includes("recipe")) {
+    acitve = "recipe";
+  } else {
+    acitve = "home";
+  }
+
   return (
     <div>
       <div className="topnav">
