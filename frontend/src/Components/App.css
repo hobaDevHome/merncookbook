@@ -9,6 +9,9 @@
   @apply flex flex-col p-3 border m-3;
 }
 
+.input-area {
+  @apply p-3 border m-3;
+}
 .label-form {
   @apply p-3;
 }
@@ -39,4 +42,56 @@
 .activelink {
   background-color: rgb(170, 4, 148);
   color: white;
+}
+
+.selectForm {
+  padding: 15px;
+  border-radius: 10px;
+  outline: 0;
+  border: "none";
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  -ms-appearance: none;
+  appearance: none;
+  outline: 0;
+  box-shadow: none;
+  border: 0 !important;
+  background: #2780c9;
+  background-image: none;
+  flex: 1;
+  padding: 0 0.5em;
+  color: #fff;
+  cursor: pointer;
+  font-size: 1em;
+  font-family: "Open Sans", sans-serif;
+}
+select::-ms-expand {
+  display: none;
+}
+.select {
+  position: relative;
+  display: flex;
+  width: 12em;
+  height: 3em;
+  line-height: 3;
+  background: #030303;
+  overflow: hidden;
+  border-radius: 0.25em;
+}
+.select::after {
+  content: "\25BC";
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0 1em;
+  background: #5b9fec;
+  cursor: pointer;
+  pointer-events: none;
+  transition: 0.25s all ease;
+}
+.select:hover::after {
+  color: #b423a8;
 }
