@@ -6,7 +6,7 @@
 @tailwind utilities;
 
 .input-new-form {
-  @apply flex flex-col p-3 border m-3 w-10/12;
+  @apply flex flex-col p-3 border m-3;
 }
 
 .label-form {
@@ -22,7 +22,7 @@
   background-color: #4b033c;
 }
 
-.topnav a {
+.topnavLink {
   float: left;
   color: #f2f2f2;
   text-align: center;
@@ -31,12 +31,12 @@
   font-size: 17px;
 }
 
-.topnav a:hover {
+.topnavLink:hover {
   background-color: #ddd;
   color: black;
 }
 
-.topnav a.active {
+.activelink {
   background-color: rgb(170, 4, 148);
   color: white;
 }
