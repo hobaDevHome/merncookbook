@@ -31,16 +31,7 @@ const routes = (app) => {
     // POST endpoint
     .post(upload.single("image"), async (req, res) => {
       let newRecipe = new Recipe({
-        title: req.body.title,
-        ingredient1: req.body.ingredient1,
-        ingredient2: req.body.ingredient2,
-        ingredient3: req.body.ingredient3,
-        ingredient4: req.body.ingredient4,
-        category: req.body.category,
-        hardness: req.body.hardness,
-        servings: req.body.servings,
-        time: req.body.time,
-        method: req.body.method,
+        ...req.body,
         image: req.file ? req.file.filename : null,
       });
 
@@ -59,6 +50,7 @@ const routes = (app) => {
 
     // update a specific recipe
     .put(upload.single("image"), async (req, res) => {
+      console.log("put");
       Recipe.findOneAndUpdate(
         { _id: req.params.RecipeId },
         {
@@ -72,6 +64,7 @@ const routes = (app) => {
           servings: req.body.servings,
           time: req.body.time,
           method: req.body.method,
+          favourite: req.body.favourite,
           image: req.file ? req.file.filename : null,
         },
         { new: true },
@@ -87,6 +80,8 @@ const routes = (app) => {
 
     // delete a specific recipe
     .delete(deleteRecipe);
+
+  app.route("/fav/:RecipeId").put(UpdateRecipe);
 };
 
 export default routes;

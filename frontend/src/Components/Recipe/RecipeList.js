@@ -9,6 +9,7 @@ import del from "../../images/del2.png";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
 
 const url = "http://localhost:4000/recipe/";
+const favurl = "http://localhost:4000/fav/";
 
 const RecipeList = ({ recipes }) => {
   const [currentList, setcurrentList] = useState([]);
@@ -117,13 +118,13 @@ const RecipeCard = ({ item, deleteRecipe }) => {
   }
 
   const toggleFav = () => {
-    setisFaved(!isFaved);
     axios
-      .put(`${url}${item._id}`, {
+      .put(`${favurl}${item._id}`, {
         favourite: !isFaved,
       })
       .then((response) => {
         console.log("fav is toggled");
+        setisFaved(!isFaved);
       })
       .catch((error) => {
         console.log(error);
