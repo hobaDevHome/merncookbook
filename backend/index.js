@@ -12,6 +12,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect("mongodb://localhost/recipeDB", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useFindAndModify: false,
 });
 
 // bodyparser setup
@@ -25,9 +26,7 @@ routes(app);
 app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) =>
-  res.send(`Our Soccer application is running on port ${PORT}`)
+  res.send(`Our application is running on port ${PORT}`)
 );
 
-app.listen(PORT, () =>
-  console.log(`Your soccer server is running on port ${PORT}`)
-);
+app.listen(PORT, () => console.log(`Your server is running on port ${PORT}`));

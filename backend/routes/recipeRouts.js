@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
-    cb(null, uniqueSuffix + file.originalname);
+    cb(null, file.originalname);
   },
 });
 
@@ -41,7 +41,7 @@ const routes = (app) => {
         servings: req.body.servings,
         time: req.body.time,
         method: req.body.method,
-        image: req.file.originalname,
+        image: req.file ? req.file.filename : null,
       });
 
       newRecipe.save((err, Recipe) => {
@@ -72,9 +72,10 @@ const routes = (app) => {
           servings: req.body.servings,
           time: req.body.time,
           method: req.body.method,
-          image: req.file.originalname,
+          image: req.file ? req.file.filename : null,
         },
         { new: true },
+
         (err, Recipe) => {
           if (err) {
             res.send(err);

@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import FileBase64 from "react-file-base64";
+import placeHolder from "../../images/recipePlaceHodler.jpg";
+
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
 // @ts-ignore
-import nnn from "../../images/new.jpg";
+
 import Navbar from "./Navbar";
 
 const putURL = "http://localhost:4000/recipes";
@@ -25,7 +26,7 @@ const RecipeForm = () => {
   const [servings, setservings] = useState(1);
   const [time, settime] = useState(15);
   const [hardness, sethardness] = useState(1);
-  const [image, setImage] = React.useState("");
+  const [image, setImage] = React.useState(null);
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -71,6 +72,7 @@ const RecipeForm = () => {
   const submitRecipe = (event) => {
     event.preventDefault();
 
+    console.log("submoe", image);
     let formData = new FormData();
 
     formData.append("title", title);
@@ -123,8 +125,6 @@ const RecipeForm = () => {
   const handleSelectTime = (e) => {
     settime(+e.target.value);
   };
-
-  console.log(image);
 
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
@@ -260,7 +260,7 @@ const RecipeForm = () => {
 
           <div className="flex flex-row justify-center">
             <button type="submit" name="action" className="button-new-form">
-              Add Recipe
+              {isEdit ? "Update Recipe" : "Add Recipe"}
             </button>
           </div>
         </form>

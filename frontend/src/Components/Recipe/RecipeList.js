@@ -1,11 +1,12 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 
 import favfill from "../../images/favFill.png";
 import favempty from "../../images/favEmpty.png";
 import del from "../../images/del2.png";
+import placeHolder from "../../images/recipePlaceHodler.jpg";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -100,11 +101,20 @@ const RecipeCard = ({ item, deleteRecipe }) => {
     if (item) {
       setisFaved(item.favourite);
     }
-  }, []);
+  }, [item]);
 
   if (!item) {
     return null;
   }
+
+  let itemImage;
+  if (item.image) {
+    itemImage = require(`../../images/${item.image}`);
+    // itemImage = placeHolder;
+  } else {
+    itemImage = placeHolder;
+  }
+
   const toggleFav = () => {
     axios
       .put(`${url}${item._id}`, {
@@ -131,7 +141,12 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       )}
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
-          <img src="hummus.jpg" alt="" className="rounded " />
+          <img
+            src={itemImage}
+            alt=""
+            className="rounded "
+            style={{ width: "100%", height: 200, objectFit: "cover" }}
+          />
         </div>
         <p className="text-center text-lg font-custom font-bold mt-2 ">
           {item.title}

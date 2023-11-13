@@ -2,13 +2,13 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
-import hummus from "../../images/hummus.jpg";
 import clock from "../../images/clock.png";
 import person from "../../images/person.png";
 import dot from "../../images/dot.png";
 import del from "../../images/del2.png";
 import edit from "../../images/edit2.png";
 import Navbar from "./Navbar";
+import placeHolder from "../../images/recipePlaceHodler.jpg";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -54,7 +54,13 @@ const RecipeDetails = () => {
         console.log(error);
       });
   };
-  console.log(`../../images/recipe.image`);
+  let itemImage;
+  if (recipe.image) {
+    itemImage = require(`../../images/${recipe.image}`);
+  } else {
+    itemImage = placeHolder;
+  }
+
   return (
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />
@@ -62,10 +68,10 @@ const RecipeDetails = () => {
         {/* picture section */}
         <div className="relative">
           <img
-            src={`../../images/${recipe.image}`}
+            src={itemImage}
             alt=""
-            className="rounded-lg mt-2"
-            style={{ width: "100%", height: 300, objectFit: "cover" }}
+            className="rounded-lg mt-2 mx-auto"
+            style={{ height: 300, objectFit: "cover" }}
           />
           <img
             onClick={deleteCurrentPlayer}
