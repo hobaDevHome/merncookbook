@@ -42,4 +42,7 @@ export const RecipeSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  image: {
+    type: String,
+  },
 });

@@ -22,6 +22,7 @@ app.use(bodyparser.json());
 app.use(cors());
 
 routes(app);
+app.use("/uploads", express.static("uploads"));
 
 app.get("/", (req, res) =>
   res.send(`Our Soccer application is running on port ${PORT}`)

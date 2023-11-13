@@ -1,5 +1,6 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
+import FileBase64 from "react-file-base64";
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -24,6 +25,7 @@ const RecipeForm = () => {
   const [servings, setservings] = useState(1);
   const [time, settime] = useState(15);
   const [hardness, sethardness] = useState(1);
+  const [image, setImage] = React.useState("");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -62,25 +64,32 @@ const RecipeForm = () => {
     }
   }, [isEdit, currentRecipe]);
 
+  const onChooseImageFile = (e) => {
+    setImage(e.target.files[0]);
+  };
+
   const submitRecipe = (event) => {
     event.preventDefault();
+
+    let formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("ingredient1", ingredient1);
+    formData.append("ingredient2", ingredient2);
+    formData.append("ingredient3", ingredient3);
+    formData.append("ingredient4", ingredient4);
+    formData.append("category", category);
+    formData.append("hardness", hardness);
+    formData.append("servings", servings);
+    formData.append("time", time);
+    formData.append("method", method);
+    formData.append("image", image);
 
     if (isEdit) {
       let pathList = location.pathname.split("/");
       let id = pathList[pathList.length - 1];
       axios
-        .put(`${getURL}${id}`, {
-          title: title,
-          ingredient1: ingredient1,
-          ingredient2: ingredient2,
-          ingredient3: ingredient3,
-          ingredient4: ingredient4,
-          category: category,
-          hardness: hardness,
-          servings: servings,
-          time: time,
-          method: method,
-        })
+        .put(`${getURL}${id}`, formData)
         .then((response) => {
           console.log("recipe updated");
           navigate("/");
@@ -90,18 +99,7 @@ const RecipeForm = () => {
         });
     } else {
       axios
-        .post(putURL, {
-          title: title,
-          ingredient1: ingredient1,
-          ingredient2: ingredient2,
-          ingredient3: ingredient3,
-          ingredient4: ingredient4,
-          category: category,
-          hardness: hardness,
-          servings: servings,
-          time: time,
-          method: method,
-        })
+        .post(putURL, formData)
         .then((response) => {
           navigate("/");
         })
@@ -126,13 +124,13 @@ const RecipeForm = () => {
     settime(+e.target.value);
   };
 
-  console.log(hardness);
+  console.log(image);
 
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
       <Navbar />
       <div className="flex flex-col ">
-        <form onSubmit={submitRecipe}>
+        <form onSubmit={submitRecipe} encType="multipart/form-data">
           <div className="flex items-center">
             <label className="label-form"> Title:</label>
 
@@ -249,6 +247,14 @@ const RecipeForm = () => {
               className="input-area"
               style={{ width: "100%" }}
               rows={6}
+            />
+          </div>
+          <div className="form-group">
+            <input
+              type="file"
+              filename="image"
+              className="form-control-file"
+              onChange={onChooseImageFile}
             />
           </div>
 

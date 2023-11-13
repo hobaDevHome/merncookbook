@@ -54,7 +54,7 @@ const RecipeDetails = () => {
         console.log(error);
       });
   };
-
+  console.log(`../../images/recipe.image`);
   return (
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />
@@ -62,7 +62,7 @@ const RecipeDetails = () => {
         {/* picture section */}
         <div className="relative">
           <img
-            src={hummus}
+            src={`../../images/${recipe.image}`}
             alt=""
             className="rounded-lg mt-2"
             style={{ width: "100%", height: 300, objectFit: "cover" }}
