@@ -94,35 +94,36 @@ export default RecipeList;
 
 const RecipeCard = ({ item, deleteRecipe }) => {
   const [isFaved, setisFaved] = useState(false);
+  const [currentImage, setcurrentImage] = useState(null);
 
   const location = useLocation();
 
   useEffect(() => {
     if (item) {
       setisFaved(item.favourite);
+      if (item.image) {
+        let itemImage = require(`../../images/${item.image}`);
+        setcurrentImage(itemImage);
+        // itemImage = placeHolder;
+      } else {
+        let itemImage = placeHolder;
+        setcurrentImage(itemImage);
+      }
     }
-  }, [item]);
+  }, []);
 
   if (!item) {
     return null;
   }
 
-  let itemImage;
-  if (item.image) {
-    itemImage = require(`../../images/${item.image}`);
-    // itemImage = placeHolder;
-  } else {
-    itemImage = placeHolder;
-  }
-
   const toggleFav = () => {
+    setisFaved(!isFaved);
     axios
       .put(`${url}${item._id}`, {
         favourite: !isFaved,
       })
       .then((response) => {
         console.log("fav is toggled");
-        setisFaved(!isFaved);
       })
       .catch((error) => {
         console.log(error);
@@ -142,7 +143,7 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img
-            src={itemImage}
+            src={currentImage}
             alt=""
             className="rounded "
             style={{ width: "100%", height: 200, objectFit: "cover" }}

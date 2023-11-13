@@ -72,7 +72,6 @@ const RecipeForm = () => {
   const submitRecipe = (event) => {
     event.preventDefault();
 
-    console.log("submoe", image);
     let formData = new FormData();
 
     formData.append("title", title);
@@ -103,6 +102,7 @@ const RecipeForm = () => {
       axios
         .post(putURL, formData)
         .then((response) => {
+          console.log("recipe created");
           navigate("/");
         })
         .catch((error) => {
