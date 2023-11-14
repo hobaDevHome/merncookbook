@@ -12,11 +12,11 @@ const Recipe = mongoose.model("Recipe", RecipeSchema);
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "../frontend/src/images/");
+    cb(null, "../frontend/src/pics/");
   },
   filename: function (req, file, cb) {
     const uniqueSuffix = Date.now();
-    cb(null, file.originalname);
+    cb(null, uniqueSuffix + file.originalname);
   },
 });
 
@@ -50,7 +50,6 @@ const routes = (app) => {
 
     // update a specific recipe
     .put(upload.single("image"), async (req, res) => {
-      console.log("put");
       Recipe.findOneAndUpdate(
         { _id: req.params.RecipeId },
         {

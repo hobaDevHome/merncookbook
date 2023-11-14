@@ -3,15 +3,21 @@ import ReactDOM from "react-dom";
 import App from "./Components/App";
 import * as serviceWorker from "./serviceWorker";
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 ReactDOM.render(
   <BrowserRouter>
+    <ToastContainer
+      theme="dark"
+      position="top-left"
+      autoClose={2000}
+      closeOnClick
+      pauseOnHover={false}
+    />
     <App />
   </BrowserRouter>,
   document.getElementById("root")
 );
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
 serviceWorker.unregister();

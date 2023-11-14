@@ -59,7 +59,7 @@ select {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  background: #2780c9;
+  background: rgb(62, 66, 68);
   background-image: none;
   flex: 1;
   padding: 0 0.5em;
@@ -75,9 +75,9 @@ select::-ms-expand {
   position: relative;
   display: flex;
   width: 12em;
-  height: 3em;
-  line-height: 3;
-  background: #030303;
+  height: 2em;
+  line-height: 2;
+  background: #e9baba;
   overflow: hidden;
   border-radius: 0.25em;
 }
@@ -87,11 +87,11 @@ select::-ms-expand {
   top: 0;
   right: 0;
   padding: 0 1em;
-  background: #5b9fec;
+  background: #48535f;
   cursor: pointer;
   pointer-events: none;
   transition: 0.25s all ease;
 }
 .select:hover::after {
-  color: #b423a8;
+  color: #f3f3f3;
 }

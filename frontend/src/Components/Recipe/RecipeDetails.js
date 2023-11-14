@@ -56,7 +56,7 @@ const RecipeDetails = () => {
   };
   let itemImage;
   if (recipe.image) {
-    itemImage = require(`../../images/${recipe.image}`);
+    itemImage = require(`../../pics/${recipe.image}`);
   } else {
     itemImage = placeHolder;
   }

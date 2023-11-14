@@ -103,7 +103,8 @@ const RecipeCard = ({ item, deleteRecipe }) => {
     if (item) {
       setisFaved(item.favourite);
       if (item.image) {
-        let itemImage = require(`../../images/${item.image}`);
+        let itemImage = require(`../../pics/${item.image}`);
+        console.log(itemImage);
         setcurrentImage(itemImage);
         // itemImage = placeHolder;
       } else {

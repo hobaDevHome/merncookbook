@@ -1,11 +1,9 @@
 // @ts-nocheck
 import React, { useState, useEffect } from "react";
-import placeHolder from "../../images/recipePlaceHodler.jpg";
 
 import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
-
-// @ts-ignore
+import { toast } from "react-toastify";
 
 import Navbar from "./Navbar";
 
@@ -72,42 +70,53 @@ const RecipeForm = () => {
   const submitRecipe = (event) => {
     event.preventDefault();
 
-    let formData = new FormData();
-
-    formData.append("title", title);
-    formData.append("ingredient1", ingredient1);
-    formData.append("ingredient2", ingredient2);
-    formData.append("ingredient3", ingredient3);
-    formData.append("ingredient4", ingredient4);
-    formData.append("category", category);
-    formData.append("hardness", hardness);
-    formData.append("servings", servings);
-    formData.append("time", time);
-    formData.append("method", method);
-    formData.append("image", image);
-
-    if (isEdit) {
-      let pathList = location.pathname.split("/");
-      let id = pathList[pathList.length - 1];
-      axios
-        .put(`${getURL}${id}`, formData)
-        .then((response) => {
-          console.log("recipe updated");
-          navigate("/");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    if (
+      title === "" ||
+      ingredient1 === "" ||
+      ingredient2 === "" ||
+      method == ""
+    ) {
+      toast.error("Missing required fields");
     } else {
-      axios
-        .post(putURL, formData)
-        .then((response) => {
-          console.log("recipe created");
-          navigate("/");
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      let formData = new FormData();
+
+      formData.append("title", title);
+      formData.append("ingredient1", ingredient1);
+      formData.append("ingredient2", ingredient2);
+      formData.append("ingredient3", ingredient3);
+      formData.append("ingredient4", ingredient4);
+      formData.append("category", category);
+      formData.append("hardness", hardness);
+      formData.append("servings", servings);
+      formData.append("time", time);
+      formData.append("method", method);
+      formData.append("image", image);
+
+      if (isEdit) {
+        let pathList = location.pathname.split("/");
+        let id = pathList[pathList.length - 1];
+        axios
+          .put(`${getURL}${id}`, formData)
+          .then((response) => {
+            console.log("recipe updated");
+            toast.success("Recipe updated");
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Something went wrong");
+          });
+      } else {
+        axios
+          .post(putURL, formData)
+          .then((response) => {
+            console.log("recipe created");
+            toast.success("Recipe created");
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error("Something went wrong");
+          });
+      }
     }
   };
 
@@ -132,7 +141,9 @@ const RecipeForm = () => {
       <div className="flex flex-col ">
         <form onSubmit={submitRecipe} encType="multipart/form-data">
           <div className="flex items-center">
-            <label className="label-form"> Title:</label>
+            <label className="label-form">
+              Title:<span className="text-red-600">*</span>
+            </label>
 
             <input
               type="text"
@@ -144,7 +155,9 @@ const RecipeForm = () => {
             />
           </div>
           <div className="flex items-center">
-            <label className="label-form">ingredient1:</label>
+            <label className="label-form">
+              ingredient1:<span className="text-red-600">*</span>
+            </label>
             <input
               type="text"
               onChange={(e) => setingredient1(e.target.value)}
@@ -155,7 +168,9 @@ const RecipeForm = () => {
             />
           </div>
           <div className="flex items-center">
-            <label className="label-form">ingredient2:</label>
+            <label className="label-form">
+              ingredient2:<span className="text-red-600">*</span>
+            </label>
             <input
               type="text"
               onChange={(e) => setingredient2(e.target.value)}
@@ -238,7 +253,9 @@ const RecipeForm = () => {
             </div>
           </div>
 
-          <label className="label-form">Instructions:</label>
+          <label className="label-form">
+            Instructions:<span className="text-red-600">*</span>
+          </label>
           <div className="flex items-center">
             <textarea
               onChange={(e) => setmethod(e.target.value)}
@@ -249,15 +266,19 @@ const RecipeForm = () => {
               rows={6}
             />
           </div>
-          <div className="form-group">
-            <input
-              type="file"
-              filename="image"
-              className="form-control-file"
-              onChange={onChooseImageFile}
-            />
+          <div className="flex items-center">
+            <label className="label-form">
+              Upload a photo for your recipe :{" "}
+            </label>
+            <div className="form-group">
+              <input
+                type="file"
+                filename="image"
+                className="form-control-file"
+                onChange={onChooseImageFile}
+              />
+            </div>
           </div>
-
           <div className="flex flex-row justify-center">
             <button type="submit" name="action" className="button-new-form">
               {isEdit ? "Update Recipe" : "Add Recipe"}
