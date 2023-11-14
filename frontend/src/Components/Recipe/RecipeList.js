@@ -55,7 +55,10 @@ const RecipeList = ({ recipes }) => {
       {!location.pathname.includes("fav") && (
         <div className="flex justify-between">
           <Link to={`/new`} style={{ textDecoration: "none" }}>
-            <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:bg-pink-500">
+            <div
+              style={{ backgroundColor: "#4b033c" }}
+              className=" text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:opacity-80"
+            >
               Add New Recipe
             </div>
           </Link>
@@ -133,7 +136,7 @@ const RecipeCard = ({ item, deleteRecipe }) => {
   };
 
   return (
-    <div className="bg-pink-200 w-[280px] m-3 p-4 rounded relative">
+    <div className="bg-gray-200 w-[280px] m-3 p-4 rounded relative">
       {!location.pathname.includes("fav") && (
         <img
           src={isFaved ? favfill : favempty}

@@ -112,7 +112,7 @@ const RecipeDetails = () => {
         {/* ingredients section */}
         <div className="mt-5">
           <div
-            className="bg-pink-200 w-[400px] mt-10 relative"
+            className="bg-gray-200 w-[400px] mt-10 relative"
             style={{
               borderTopLeftRadius: 30,
               borderTopRightRadius: 30,
@@ -120,7 +120,10 @@ const RecipeDetails = () => {
               height: ingsHeight,
             }}
           >
-            <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7">
+            <div
+              style={{ backgroundColor: "#4b033c" }}
+              className=" text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7"
+            >
               Ingrendients
             </div>
             <div
@@ -141,7 +144,7 @@ const RecipeDetails = () => {
         {/* instructions */}
         <div className="mt-5">
           <div
-            className="bg-pink-200 w-[700px] mt-10 relative mb-5"
+            className="bg-gray-200 w-[700px] mt-10 relative mb-5"
             style={{
               borderTopLeftRadius: 30,
               borderTopRightRadius: 30,
@@ -150,7 +153,10 @@ const RecipeDetails = () => {
               height: "auto",
             }}
           >
-            <div className="bg-pink-600 text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7">
+            <div
+              style={{ backgroundColor: "#4b033c" }}
+              className="bg-pink-600 text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7"
+            >
               Instructions
             </div>
             <div className="p-5 pt-10" style={{ marginTop: 20 }}>

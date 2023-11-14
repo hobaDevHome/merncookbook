@@ -17,7 +17,8 @@
 }
 
 .button-new-form {
-  @apply mx-auto w-[150px] h-[50px] bg-pink-600 text-white mb-10 hover:bg-pink-500 self-center rounded-lg;
+  background-color: #4b033c;
+  @apply mx-auto w-[150px] h-[50px] text-white mb-10 hover:bg-gray-500 self-center rounded-lg;
 }
 
 .topnav {
@@ -59,7 +60,7 @@ select {
   outline: 0;
   box-shadow: none;
   border: 0 !important;
-  background: rgb(62, 66, 68);
+  background: #4b033c;
   background-image: none;
   flex: 1;
   padding: 0 0.5em;
