@@ -105,15 +105,15 @@ const RecipeCard = ({ item, deleteRecipe }) => {
   useEffect(() => {
     if (item) {
       setisFaved(item.favourite);
-      if (item.image) {
-        let itemImage = require(`../../pics/${item.image}`);
-        console.log(itemImage);
-        setcurrentImage(itemImage);
-        // itemImage = placeHolder;
-      } else {
-        let itemImage = placeHolder;
-        setcurrentImage(itemImage);
-      }
+      // if (item.image) {
+      //   let itemImage = require(`../../pics/${item.image}`);
+      //   console.log(itemImage);
+      //   setcurrentImage(itemImage);
+      //   // itemImage = placeHolder;
+      // } else {
+      //   let itemImage = placeHolder;
+      //   setcurrentImage(itemImage);
+      // }
     }
   }, []);
 
@@ -148,7 +148,7 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img
-            src={currentImage}
+            src={placeHolder}
             alt=""
             className="rounded "
             style={{ width: "100%", height: 200, objectFit: "cover" }}

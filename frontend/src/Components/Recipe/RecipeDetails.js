@@ -54,12 +54,12 @@ const RecipeDetails = () => {
         console.log(error);
       });
   };
-  let itemImage;
-  if (recipe.image) {
-    itemImage = require(`../../pics/${recipe.image}`);
-  } else {
-    itemImage = placeHolder;
-  }
+  // let itemImage;
+  // if (recipe.image) {
+  //   itemImage = require(`../../pics/${recipe.image}`);
+  // } else {
+  //   itemImage = placeHolder;
+  // }
 
   return (
     <div className="continer max-w-screen-xl mx-auto">
@@ -68,7 +68,7 @@ const RecipeDetails = () => {
         {/* picture section */}
         <div className="relative">
           <img
-            src={itemImage}
+            src={placeHolder}
             alt=""
             className="rounded-lg mt-2 mx-auto"
             style={{ height: 300, objectFit: "cover" }}
