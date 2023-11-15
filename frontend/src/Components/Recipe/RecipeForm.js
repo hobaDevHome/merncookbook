@@ -266,7 +266,7 @@ const RecipeForm = () => {
               rows={6}
             />
           </div>
-          <div className="flex items-center">
+          {/* <div className="flex items-center">
             <label className="label-form">
               Upload a photo for your recipe :{" "}
             </label>
@@ -278,7 +278,7 @@ const RecipeForm = () => {
                 onChange={onChooseImageFile}
               />
             </div>
-          </div>
+          </div> */}
           <div className="flex flex-row justify-center">
             <button type="submit" name="action" className="button-new-form">
               {isEdit ? "Update Recipe" : "Add Recipe"}
