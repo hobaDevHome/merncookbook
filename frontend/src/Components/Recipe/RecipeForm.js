@@ -5,11 +5,18 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
+import { setDoc, doc } from "@firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
+
+import { auth, storage, db } from "../../firebase-config";
+
 import Navbar from "./Navbar";
 
-const putURL = "http://localhost:4000/recipes";
+// const url = process.env.REACT_APP_MONGO_URI;
 
-const getURL = "http://localhost:4000/recipe/";
+const getURL = "http://localhost:4000/recipes";
+
+const putURL = "http://localhost:4000/recipe/";
 
 const RecipeForm = () => {
   const [isEdit, setisEdit] = useState(false);
@@ -24,9 +31,10 @@ const RecipeForm = () => {
   const [servings, setservings] = useState(1);
   const [time, settime] = useState(15);
   const [hardness, sethardness] = useState(1);
-  const [image, setImage] = React.useState(null);
+  const [image, setImage] = useState(null);
+  const [imageURL, setImageURL] = useState(null);
+  const [isLoading, setisLoading] = useState(false);
 
-  const navigate = useNavigate();
   const location = useLocation();
 
   useEffect(() => {
@@ -38,7 +46,7 @@ const RecipeForm = () => {
       setisEdit(isEditing);
 
       axios
-        .get(getURL + id)
+        .get(putURL + id)
         .then((Response) => {
           setcurrentRecipe(Response.data);
         })
@@ -62,9 +70,45 @@ const RecipeForm = () => {
       if (currentRecipe.time) settime(currentRecipe.time);
     }
   }, [isEdit, currentRecipe]);
+  useEffect(() => {
+    // setImageURL2(imageURL);
+  }, [imageURL]);
 
   const onChooseImageFile = (e) => {
     setImage(e.target.files[0]);
+    if (e.target.files[0]) {
+      setisLoading(true);
+      const storageRef = ref(
+        storage,
+        `recipes/${Date.now()}_${e.target.files[0].name}`
+      );
+
+      const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          console.log("Upload is in progress");
+        },
+        (error) => {
+          console.log("uploadtasek error", error);
+          setisLoading(false);
+        },
+        () => {
+          console.log("success");
+          getDownloadURL(uploadTask.snapshot.ref)
+            .then((url) => {
+              setImageURL(url);
+              setisLoading(false);
+            })
+            .catch((error) => {
+              // Handle any errors
+              console.log("upload error", error);
+              setisLoading(false);
+            });
+        }
+      );
+    }
   };
 
   const submitRecipe = (event) => {
@@ -74,29 +118,27 @@ const RecipeForm = () => {
       title === "" ||
       ingredient1 === "" ||
       ingredient2 === "" ||
-      method == ""
+      method === ""
     ) {
       toast.error("Missing required fields");
     } else {
-      let formData = new FormData();
-
-      formData.append("title", title);
-      formData.append("ingredient1", ingredient1);
-      formData.append("ingredient2", ingredient2);
-      formData.append("ingredient3", ingredient3);
-      formData.append("ingredient4", ingredient4);
-      formData.append("category", category);
-      formData.append("hardness", hardness);
-      formData.append("servings", servings);
-      formData.append("time", time);
-      formData.append("method", method);
-      formData.append("image", image);
-
       if (isEdit) {
         let pathList = location.pathname.split("/");
         let id = pathList[pathList.length - 1];
         axios
-          .put(`${getURL}${id}`, formData)
+          .put(`${putURL}${id}`, {
+            title: title,
+            ingredient1: ingredient1,
+            ingredient2: ingredient2,
+            ingredient3: ingredient3,
+            ingredient4: ingredient4,
+            category: category,
+            hardness: hardness,
+            servings: servings,
+            time: time,
+            image: imageURL,
+            method: method,
+          })
           .then((response) => {
             console.log("recipe updated");
             toast.success("Recipe updated");
@@ -107,7 +149,19 @@ const RecipeForm = () => {
           });
       } else {
         axios
-          .post(putURL, formData)
+          .post(getURL, {
+            title: title,
+            ingredient1: ingredient1,
+            ingredient2: ingredient2,
+            ingredient3: ingredient3,
+            ingredient4: ingredient4,
+            category: category,
+            hardness: hardness,
+            servings: servings,
+            time: time,
+            image: imageURL,
+            method: method,
+          })
           .then((response) => {
             console.log("recipe created");
             toast.success("Recipe created");
@@ -134,7 +188,8 @@ const RecipeForm = () => {
   const handleSelectTime = (e) => {
     settime(+e.target.value);
   };
-
+  console.log("imagrur--", imageURL);
+  // console.log("imagrur2--", imageURL2);
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
       <Navbar />
@@ -266,7 +321,7 @@ const RecipeForm = () => {
               rows={6}
             />
           </div>
-          {/* <div className="flex items-center">
+          <div className="flex items-center">
             <label className="label-form">
               Upload a photo for your recipe :{" "}
             </label>
@@ -278,9 +333,14 @@ const RecipeForm = () => {
                 onChange={onChooseImageFile}
               />
             </div>
-          </div> */}
+          </div>
           <div className="flex flex-row justify-center">
-            <button type="submit" name="action" className="button-new-form">
+            <button
+              disabled={isLoading}
+              type="submit"
+              name="action"
+              className={`${isLoading ? "" : "button-new-form "}`}
+            >
               {isEdit ? "Update Recipe" : "Add Recipe"}
             </button>
           </div>

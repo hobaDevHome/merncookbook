@@ -7,6 +7,7 @@ import cover from "../../images/cover.jpg";
 import home2 from "../../images/home2.png";
 
 const url = "http://localhost:4000/recipes";
+// const url = process.env.REACT_APP_MONGO_URI;
 
 function RecipeHome() {
   const [recipes, setRecipes] = useState([]);
