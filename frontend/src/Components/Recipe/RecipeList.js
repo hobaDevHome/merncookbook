@@ -148,7 +148,7 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img
-            src={placeHolder}
+            src={item.image ? item.image : placeHolder}
             alt=""
             className="rounded "
             style={{ width: "100%", height: 200, objectFit: "cover" }}
