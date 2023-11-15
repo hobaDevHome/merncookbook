@@ -9,6 +9,7 @@ import del from "../../images/del2.png";
 import edit from "../../images/edit2.png";
 import Navbar from "./Navbar";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
+import home1 from "../../images/home1.jpg";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -39,7 +40,7 @@ const RecipeDetails = () => {
   if (recipe.ingredient3) ings.push(recipe.ingredient3);
   if (recipe.ingredient4) ings.push(recipe.ingredient4);
 
-  let ingsHeight = ings.length * 50 + 20;
+  let ingsHeight = ings.length * 50 + 30;
 
   const deleteCurrentPlayer = () => {
     // setCurrentPlayer(id);
@@ -68,7 +69,7 @@ const RecipeDetails = () => {
         {/* picture section */}
         <div className="relative">
           <img
-            src={placeHolder}
+            src={home1}
             alt=""
             className="rounded-lg mt-2 mx-auto"
             style={{ height: 300, objectFit: "cover" }}
