@@ -32,7 +32,7 @@ export const RecipeSchema = new Schema({
   },
   hardness: {
     type: Number,
-    enum: [1, 2, 3],
+    enum: [1, 2, 3, 4, 5],
   },
   category: {
     type: String,
@@ -42,7 +42,10 @@ export const RecipeSchema = new Schema({
     type: Boolean,
     default: false,
   },
-  image: {
+  imageName: {
+    type: String,
+  },
+  imageURL: {
     type: String,
   },
 });

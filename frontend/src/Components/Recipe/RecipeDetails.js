@@ -10,6 +10,7 @@ import edit from "../../images/edit2.png";
 import Navbar from "./Navbar";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
 import home1 from "../../images/home1.jpg";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const url = "http://localhost:4000/recipe/";
 
@@ -17,6 +18,7 @@ const RecipeDetails = () => {
   const [recipe, setRecipe] = useState({});
   let { id } = useParams();
   const navigate = useNavigate();
+  const storage = getStorage();
 
   useEffect(() => {
     axios
@@ -54,6 +56,19 @@ const RecipeDetails = () => {
       .catch((error) => {
         console.log(error);
       });
+
+    let imageName = recipe.imageName;
+
+    const desertRef = ref(storage, `recipes/${imageName}`);
+    deleteObject(desertRef)
+      .then(() => {
+        // File deleted successfully
+        console.log("Recipe image deleted");
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+        console.log("Recipe image failed to delete");
+      });
   };
 
   return (
@@ -63,7 +78,7 @@ const RecipeDetails = () => {
         {/* picture section */}
         <div className="relative">
           <img
-            src={recipe.image ? recipe.image : home1}
+            src={recipe.imageURL ? recipe.imageURL : home1}
             alt=""
             className="rounded-lg mt-2 mx-auto"
             style={{ height: 300, objectFit: "cover" }}

@@ -32,6 +32,8 @@ const RecipeForm = () => {
   const [time, settime] = useState(15);
   const [hardness, sethardness] = useState(1);
   const [image, setImage] = useState(null);
+  const [imageName, setImageName] = useState(null);
+
   const [imageURL, setImageURL] = useState(null);
   const [isLoading, setisLoading] = useState(false);
 
@@ -75,12 +77,17 @@ const RecipeForm = () => {
   }, [imageURL]);
 
   const onChooseImageFile = (e) => {
+    let suffex = Date.now();
+
+    let name = e.target.files[0] ? e.target.files[0].name : "";
+
     setImage(e.target.files[0]);
+
     if (e.target.files[0]) {
       setisLoading(true);
       const storageRef = ref(
         storage,
-        `recipes/${Date.now()}_${e.target.files[0].name}`
+        `recipes/${suffex}_${e.target.files[0].name}`
       );
 
       const uploadTask = uploadBytesResumable(storageRef, e.target.files[0]);
@@ -91,11 +98,12 @@ const RecipeForm = () => {
           console.log("Upload is in progress");
         },
         (error) => {
-          console.log("uploadtasek error", error);
+          console.log("upload error", error);
           setisLoading(false);
         },
         () => {
           console.log("success");
+
           getDownloadURL(uploadTask.snapshot.ref)
             .then((url) => {
               setImageURL(url);
@@ -106,6 +114,7 @@ const RecipeForm = () => {
               console.log("upload error", error);
               setisLoading(false);
             });
+          setImageName(`${suffex}_${name}`);
         }
       );
     }
@@ -136,7 +145,8 @@ const RecipeForm = () => {
             hardness: hardness,
             servings: servings,
             time: time,
-            image: imageURL,
+            imageName: imageName,
+            imageURL: imageURL,
             method: method,
           })
           .then((response) => {
@@ -159,7 +169,8 @@ const RecipeForm = () => {
             hardness: hardness,
             servings: servings,
             time: time,
-            image: imageURL,
+            imageName: imageName,
+            imageURL: imageURL,
             method: method,
           })
           .then((response) => {
@@ -188,8 +199,7 @@ const RecipeForm = () => {
   const handleSelectTime = (e) => {
     settime(+e.target.value);
   };
-  console.log("imagrur--", imageURL);
-  // console.log("imagrur2--", imageURL2);
+
   return (
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
       <Navbar />

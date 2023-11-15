@@ -7,6 +7,7 @@ import favfill from "../../images/favFill.png";
 import favempty from "../../images/favEmpty.png";
 import del from "../../images/del2.png";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
+import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const url = "http://localhost:4000/recipe/";
 const favurl = "http://localhost:4000/fav/";
@@ -15,6 +16,7 @@ const RecipeList = ({ recipes }) => {
   const [currentList, setcurrentList] = useState([]);
   const [currentCat, setCurrentCat] = useState("all");
   const location = useLocation();
+  const storage = getStorage();
 
   useEffect(() => {
     if (recipes) {
@@ -44,6 +46,19 @@ const RecipeList = ({ recipes }) => {
       .catch((error) => {
         console.log(error);
       });
+    let currentRecipe = recipes.filter((e) => e._id === id);
+    let imageName = currentRecipe[0].imageName;
+
+    const desertRef = ref(storage, `recipes/${imageName}`);
+    deleteObject(desertRef)
+      .then(() => {
+        // File deleted successfully
+        console.log("Recipe image deleted");
+      })
+      .catch((error) => {
+        // Uh-oh, an error occurred!
+        console.log("Recipe image failed to delete");
+      });
   };
 
   const handleSelectCat = (e) => {
@@ -54,16 +69,8 @@ const RecipeList = ({ recipes }) => {
     <div className=" mx-auto w-11/12 mt-5">
       {!location.pathname.includes("fav") && (
         <div className="flex justify-between">
-          <Link to={`/new`} style={{ textDecoration: "none" }}>
-            <div
-              style={{ backgroundColor: "#4b033c" }}
-              className=" text-white rounded-lg shadow-sm p-3 ml-2   text-center w-[170px] font-medium font-custom7  hover:opacity-80"
-            >
-              Add New Recipe
-            </div>
-          </Link>
           <div className="flex items-center mb-5">
-            <label className="label-form">Choose food category</label>
+            <label className="label-form">Food category</label>
             <div className="select">
               <select name="servings" id="servings" onChange={handleSelectCat}>
                 <option value="all">All</option>
@@ -98,22 +105,12 @@ export default RecipeList;
 
 const RecipeCard = ({ item, deleteRecipe }) => {
   const [isFaved, setisFaved] = useState(false);
-  const [currentImage, setcurrentImage] = useState(null);
 
   const location = useLocation();
 
   useEffect(() => {
     if (item) {
       setisFaved(item.favourite);
-      // if (item.image) {
-      //   let itemImage = require(`../../pics/${item.image}`);
-      //   console.log(itemImage);
-      //   setcurrentImage(itemImage);
-      //   // itemImage = placeHolder;
-      // } else {
-      //   let itemImage = placeHolder;
-      //   setcurrentImage(itemImage);
-      // }
     }
   }, []);
 
@@ -148,7 +145,7 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       <Link to={`/recipe/${item._id}`} style={{ textDecoration: "none" }}>
         <div className="relative">
           <img
-            src={item.image ? item.image : placeHolder}
+            src={item.imageURL ? item.imageURL : placeHolder}
             alt=""
             className="rounded "
             style={{ width: "100%", height: 200, objectFit: "cover" }}
