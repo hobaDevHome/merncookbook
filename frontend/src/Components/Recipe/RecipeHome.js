@@ -24,7 +24,6 @@ function RecipeHome() {
       });
   }, []);
 
-  console.log("recipes", recipes);
   return (
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />

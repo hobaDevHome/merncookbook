@@ -36,7 +36,11 @@ const RecipeList = ({ recipes }) => {
   }, [currentCat]);
 
   if (!currentList || currentList.length <= 0) {
-    return <h1>hi</h1>;
+    return (
+      <div className=" mx-auto w-8/12 mt-5 font-bold">
+        <h1>no recipes added yet</h1>
+      </div>
+    );
   }
   const deleteRecipe = (id) => {
     axios

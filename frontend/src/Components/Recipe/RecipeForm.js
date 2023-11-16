@@ -14,9 +14,9 @@ import Navbar from "./Navbar";
 
 // const url = process.env.REACT_APP_MONGO_URI;
 
-const getURL = "http://localhost:4000/recipes";
+const getURL = "https://merncookbook-server.vercel.app/recipes";
 
-const putURL = "http://localhost:4000/recipe/";
+const putURL = "https://merncookbook-server.vercel.app/recipe/";
 
 const RecipeForm = () => {
   const [isEdit, setisEdit] = useState(false);
@@ -38,6 +38,7 @@ const RecipeForm = () => {
   const [isLoading, setisLoading] = useState(false);
 
   const location = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     let isEditing = location.pathname.includes("edit");
@@ -151,6 +152,7 @@ const RecipeForm = () => {
           })
           .then((response) => {
             console.log("recipe updated");
+            navigate("/");
             toast.success("Recipe updated");
           })
           .catch((error) => {
@@ -175,6 +177,7 @@ const RecipeForm = () => {
           })
           .then((response) => {
             console.log("recipe created");
+            navigate("/");
             toast.success("Recipe created");
           })
           .catch((error) => {
