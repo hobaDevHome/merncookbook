@@ -1,4 +1,5 @@
 ## Recipes book : MERN stack App
+The app operates as a full CRUD (Create, Read, Update, Delete) system, allowing users to edit existing recipes or remove them entirely.
 
 ## Demo
 
@@ -6,15 +7,12 @@ You can check out the live demo of the project [here](https://merncookbook-front
 
 ## Features
 
-- Sign-in page for current users and Sign-Up page for newcomers.
-- Products Page: Display a list of products with images, names, prices, and descriptions.
-- Product Details Page: Allow users to view detailed information about a selected product.
-- Product Filtering: Implement filters to let users narrow down products by category or color.
-- Cart: where you can add products to cart, and able to increase and decrease item amounts.
-- Payment Feature: Enable users to make purchases using Stripe for secure payments.
-- Purchase History: Keep track of users' previous purchase history.
-- State Management: Use Redux Toolkit to manage the application's state efficiently.
-- State Persistence: Utilize local storage to persist cart items even after reloading the app.
+- Main Page: Display a list of recipes with images, title, and category.
+- Recipe Details Page: Allow users to view detailed information about a selected recipe.
+- Recipe Filtering: Implement filters to let users narrow down recipes by category.
+- Add new recipe Page: The user can add a new recipe with ingredients, step-by-step instructions, category, time of preparation, and an image to visualize the dish
+- User can edit selected recipes.
+- User can delete selected recipe.
 
 ## Technologies Used
 
