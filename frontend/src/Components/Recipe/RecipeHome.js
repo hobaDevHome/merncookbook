@@ -7,6 +7,7 @@ import cover2 from "../../images/cover2.jpg";
 import home2 from "../../images/home2.png";
 import damn from "../../images/damn.png";
 import dam2 from "../../images/dam2.jpg";
+import fam from "../../images/family.jpg";
 
 const url = "http://localhost:4000/recipes";
 // const url = process.env.REACT_APP_MONGO_URI;
@@ -33,12 +34,12 @@ function RecipeHome() {
           <img
             src={damn}
             alt=""
-            className="object-contain w-[200px] mt-2 rounded-xl"
+            className="object-contain w-[300px] mt-2 rounded-xl"
           />
           <img
-            src={dam2}
+            src={fam}
             alt=""
-            className="object-contain  h-[250px]  mt-2 rounded-xl"
+            className="object-contain  w-5/12 mt-2 rounded-xl"
           />
         </div>
         <div className="col s3">
