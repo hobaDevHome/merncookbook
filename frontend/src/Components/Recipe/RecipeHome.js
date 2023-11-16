@@ -8,8 +8,8 @@ import damn from "../../images/damn.png";
 
 import fam from "../../images/family.jpg";
 
-const url = "http://localhost:4000/recipes";
-// const url = process.env.REACT_APP_MONGO_URI;
+// const url = "http://localhost:4000/recipes";
+const url = "https://merncookbook-front.vercel.app/recipes";
 
 function RecipeHome() {
   const [recipes, setRecipes] = useState([]);
@@ -25,6 +25,7 @@ function RecipeHome() {
       });
   }, []);
 
+  console.log("recipes", recipes);
   return (
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />
