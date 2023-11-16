@@ -14,7 +14,7 @@ import hardnofill from "../../images/hardNoFill.png";
 import home1 from "../../images/home1.jpg";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
-const url = "http://localhost:4000/recipe/";
+const url = "https://merncookbook-server.vercel.app/recipe/";
 
 const cats = {
   carb: "Low Carb",

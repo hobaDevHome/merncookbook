@@ -8,7 +8,7 @@ import damn from "../../images/damn.png";
 import axios from "axios";
 import Navbar from "./Navbar";
 
-const url = "http://localhost:4000/recipes";
+const url = "https://merncookbook-server.vercel.app/recipes";
 
 function RecipeFav() {
   const [recipes, setRecipes] = useState([]);

@@ -9,8 +9,8 @@ import del from "../../images/del2.png";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
-const url = "https://merncookbook-front.vercel.app/recipe/";
-const favurl = "https://merncookbook-front.vercel.app/fav/";
+const url = "https://merncookbook-server.vercel.app/recipe/";
+const favurl = "https://merncookbook-server.vercel.app/fav/";
 
 const RecipeList = ({ recipes }) => {
   const [currentList, setcurrentList] = useState([]);
