@@ -34,7 +34,7 @@ function RecipeHome() {
           <img
             src={damn}
             alt=""
-            className="object-contain w-[300px] mt-2 rounded-xl"
+            className="object-contain w-3/12 mt-2 rounded-xl"
           />
           <img
             src={fam}
