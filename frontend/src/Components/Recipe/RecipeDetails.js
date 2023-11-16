@@ -4,11 +4,11 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import clock from "../../images/clock.png";
 import person from "../../images/person.png";
-import dot from "../../images/dot.png";
+
 import del from "../../images/del2.png";
 import edit from "../../images/edit2.png";
 import Navbar from "./Navbar";
-import placeHolder from "../../images/recipePlaceHodler.jpg";
+
 import hardfill from "../../images/hardFill.png";
 import hardnofill from "../../images/hardNoFill.png";
 import home1 from "../../images/home1.jpg";
@@ -51,11 +51,7 @@ const RecipeDetails = () => {
   if (recipe.ingredient3) ings.push(recipe.ingredient3);
   if (recipe.ingredient4) ings.push(recipe.ingredient4);
 
-  let ingsHeight = ings.length * 50 + 30;
-
   const deleteCurrentPlayer = () => {
-    // setCurrentPlayer(id);
-
     axios
       .delete(`${url}${id}`)
       .then((Response) => {
@@ -71,11 +67,9 @@ const RecipeDetails = () => {
     const desertRef = ref(storage, `recipes/${imageName}`);
     deleteObject(desertRef)
       .then(() => {
-        // File deleted successfully
         console.log("Recipe image deleted");
       })
       .catch((error) => {
-        // Uh-oh, an error occurred!
         console.log("Recipe image failed to delete");
       });
   };

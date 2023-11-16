@@ -5,14 +5,11 @@ import axios from "axios";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { setDoc, doc } from "@firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "@firebase/storage";
 
-import { auth, storage, db } from "../../firebase-config";
+import { storage } from "../../firebase-config";
 
 import Navbar from "./Navbar";
-
-// const url = process.env.REACT_APP_MONGO_URI;
 
 const getURL = "https://merncookbook-server.vercel.app/recipes";
 
@@ -36,6 +33,7 @@ const RecipeForm = () => {
 
   const [imageURL, setImageURL] = useState(null);
   const [isLoading, setisLoading] = useState(false);
+  const [isProcessing, setIsProcessing] = useState(false);
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -73,9 +71,6 @@ const RecipeForm = () => {
       if (currentRecipe.time) settime(currentRecipe.time);
     }
   }, [isEdit, currentRecipe]);
-  useEffect(() => {
-    // setImageURL2(imageURL);
-  }, [imageURL]);
 
   const onChooseImageFile = (e) => {
     let suffex = Date.now();
@@ -132,6 +127,7 @@ const RecipeForm = () => {
     ) {
       toast.error("Missing required fields");
     } else {
+      setIsProcessing(true);
       if (isEdit) {
         let pathList = location.pathname.split("/");
         let id = pathList[pathList.length - 1];
@@ -152,11 +148,13 @@ const RecipeForm = () => {
           })
           .then((response) => {
             console.log("recipe updated");
+            setIsProcessing(false);
             navigate("/");
             toast.success("Recipe updated");
           })
           .catch((error) => {
             console.log(error);
+            setIsProcessing(false);
             toast.error("Something went wrong");
           });
       } else {
@@ -177,10 +175,12 @@ const RecipeForm = () => {
           })
           .then((response) => {
             console.log("recipe created");
+            setIsProcessing(false);
             navigate("/");
             toast.success("Recipe created");
           })
           .catch((error) => {
+            setIsProcessing(false);
             console.log(error);
             toast.error("Something went wrong");
           });
@@ -207,6 +207,12 @@ const RecipeForm = () => {
     <div className="continer max-w-screen-xl bg-gray-100 mx-auto">
       <Navbar />
       <div className="flex flex-col ">
+        {isProcessing && (
+          <div
+            className="loader"
+            style={{ position: "absolute", top: 30, left: "50%" }}
+          ></div>
+        )}
         <form onSubmit={submitRecipe} encType="multipart/form-data">
           <div className="flex items-center">
             <label className="label-form">
@@ -347,12 +353,15 @@ const RecipeForm = () => {
               />
             </div>
           </div>
+          {isLoading && <div className="loader"></div>}
           <div className="flex flex-row justify-center">
             <button
               disabled={isLoading}
               type="submit"
               name="action"
-              className={`${isLoading ? "" : "button-new-form "}`}
+              className={`${
+                isLoading || isProcessing ? "" : "button-new-form "
+              }`}
             >
               {isEdit ? "Update Recipe" : "Add Recipe"}
             </button>

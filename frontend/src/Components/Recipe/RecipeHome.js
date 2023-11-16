@@ -12,15 +12,19 @@ const url = "https://merncookbook-server.vercel.app/recipes";
 
 function RecipeHome() {
   const [recipes, setRecipes] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     axios
       .get(url)
       .then((Response) => {
         setRecipes(Response.data);
+        setIsLoading(false);
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       });
   }, []);
 
@@ -40,6 +44,7 @@ function RecipeHome() {
             className="object-contain  w-5/12 mt-2 rounded-xl"
           />
         </div>
+        {isLoading && <div className="loader"></div>}
         <div className="col s3">
           <RecipeList recipes={recipes} />
         </div>

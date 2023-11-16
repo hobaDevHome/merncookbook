@@ -96,3 +96,22 @@ select::-ms-expand {
 .select:hover::after {
   color: #f3f3f3;
 }
+
+.loader {
+  margin: auto;
+  border: 10px solid #eaf0f6;
+  border-radius: 50%;
+  border-top: 10px solid #ffcb3e;
+  width: 100px;
+  height: 100px;
+  animation: spinner 1.5s linear infinite;
+}
+
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
