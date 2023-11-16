@@ -9,10 +9,19 @@ import del from "../../images/del2.png";
 import edit from "../../images/edit2.png";
 import Navbar from "./Navbar";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
+import hardfill from "../../images/hardFill.png";
+import hardnofill from "../../images/hardNoFill.png";
 import home1 from "../../images/home1.jpg";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
 const url = "http://localhost:4000/recipe/";
+
+const cats = {
+  carb: "Low Carb",
+  fat: "Low Fat",
+  all: "General ",
+  veg: "Vegetarian",
+};
 
 const RecipeDetails = () => {
   const [recipe, setRecipe] = useState({});
@@ -71,35 +80,113 @@ const RecipeDetails = () => {
       });
   };
 
+  console.log(recipe.hardness);
   return (
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />
-      <div className="flex flex-col ">
+      <div className="flex  ">
+        {/* ingredients section */}
+        <div className="flex flex-col mr-4 flex-1 ">
+          <div className="mt-5">
+            <div className="">
+              <p
+                className=" font-custom text-2xl rounded-lg p-2 mb-2"
+                style={{ backgroundColor: "#ffcb3e", color: "#003853" }}
+              >
+                {recipe.title}
+              </p>
+              <div
+                style={{ color: "#003853", fontSize: 18, fontWeight: "bold" }}
+                className=" rounded-lg shadow-sm p-3  w-[120px] "
+              >
+                Ingrendients
+              </div>
+              <div
+                style={{
+                  backgroundColor: "#ffcb3e",
+                  height: 4,
+                  marginLeft: 10,
+                  marginRight: 10,
+                  width: "50%",
+                }}
+              ></div>
+              <div className="" style={{ marginTop: 20 }}>
+                {ings.map((e, index) => (
+                  <div className="flex items-center mt-3 ml-3" key={index}>
+                    <div className="text-lg ml-2">- {e}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* instructions */}
+          <div className="mt-5">
+            <div
+              style={{ color: "#003853", fontSize: 18, fontWeight: "bold" }}
+              className=" rounded-lg shadow-sm p-3  w-[120px] "
+            >
+              Instructions
+            </div>
+            <div
+              style={{
+                backgroundColor: "#ffcb3e",
+                height: 4,
+                marginLeft: 10,
+                marginRight: 10,
+                width: "50%",
+              }}
+            ></div>
+            <div>
+              <div className="p-5 " style={{ marginTop: 10, width: "100%" }}>
+                <div className="text-lg ml-2">{recipe.method}</div>
+              </div>
+            </div>
+          </div>
+        </div>
         {/* picture section */}
-        <div className="relative">
+        <div className="relative flex-1">
           <img
             src={recipe.imageURL ? recipe.imageURL : home1}
             alt=""
-            className="rounded-lg mt-2 mx-auto"
-            style={{ height: 300, objectFit: "cover" }}
+            className="rounded-lg mt-2 mx-auto "
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
-          <img
-            onClick={deleteCurrentPlayer}
-            src={del}
-            alt=""
-            className="w-8 absolute top-5 right-5 cursor-pointer"
-          />
-          <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
+          <div
+            style={{
+              backgroundColor: "#ffcb3e",
+            }}
+            className="w-10 h-10 absolute top-4 right-6 cursor-pointer rounded-lg justify-center flex items-center hover:scale-125 transition-all  duration-200 ease-out"
+          >
             <img
-              src={edit}
+              onClick={deleteCurrentPlayer}
+              src={del}
               alt=""
-              className="w-8 absolute top-5 right-16 cursor-pointer"
+              className="w-8 h-8"
             />
-          </Link>
-          <p className="absolute bottom-2 left-1 font-custom text-3xl ml-3">
-            {recipe.title}
-          </p>
-          <div className="absolute bottom-[-40px] right-10 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center ">
+          </div>
+          <div
+            style={{
+              backgroundColor: "#ffcb3e",
+            }}
+            className="w-10 h-10 absolute top-16 right-6 cursor-pointer rounded-lg justify-center flex items-center hover:scale-125 transition-all  duration-200 ease-out"
+          >
+            <Link to={`/edit/${id}`} style={{ textDecoration: "none" }}>
+              <img src={edit} alt="" className="w-8 h-8" />
+            </Link>
+          </div>
+          <div
+            className="absolute left-0 top-16"
+            style={{
+              backgroundColor: "#ffcb3e",
+              color: "#003853",
+              fontSize: 18,
+              padding: 5,
+              width: 110,
+            }}
+          >
+            {cats[recipe.category]}
+          </div>
+          <div className="absolute bottom-2 right-10 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
             <div className="flex items-center mt-3 mb-2">
               <div>
                 <img src={person} alt="" className=" w-5" />
@@ -118,61 +205,29 @@ const RecipeDetails = () => {
               </div>
             </div>
           </div>
-        </div>
-        {/* ingredients section */}
-        <div className="mt-5">
-          <div
-            className="bg-gray-200 w-[400px] mt-10 relative"
-            style={{
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              borderBottomLeftRadius: 30,
-              height: ingsHeight,
-            }}
-          >
-            <div
-              style={{ backgroundColor: "#4b033c" }}
-              className=" text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7"
-            >
-              Ingrendients
+          {recipe.hardness && (
+            <div className="absolute bottom-24 right-10 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
+              <p style={{ marginRight: 5 }}>Difficulty:</p>
+              <div className="flex items-center mt-3 mb-5">
+                {new Array(recipe.hardness).fill(0).map((e, index) => (
+                  <img
+                    src={hardfill}
+                    alt=""
+                    className=" w-5 mr-1"
+                    key={index}
+                  />
+                ))}
+                {new Array(5 - recipe.hardness).fill(0).map((e, index) => (
+                  <img
+                    src={hardnofill}
+                    alt=""
+                    className=" w-5 mr-1"
+                    key={index}
+                  />
+                ))}
+              </div>
             </div>
-            <div
-              className="absolute top-[20px] left-7"
-              style={{ marginTop: 20 }}
-            >
-              {ings.map((e, index) => (
-                <div className="flex items-center mt-3 ml-3" key={index}>
-                  <div>
-                    <img src={dot} alt="" className=" w-3" />
-                  </div>
-                  <div className="text-lg ml-2">{e}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-        {/* instructions */}
-        <div className="mt-5">
-          <div
-            className="bg-gray-200 w-[700px] mt-10 relative mb-5"
-            style={{
-              borderTopLeftRadius: 30,
-              borderTopRightRadius: 30,
-              borderBottomLeftRadius: 30,
-              minHeight: 80,
-              height: "auto",
-            }}
-          >
-            <div
-              style={{ backgroundColor: "#4b033c" }}
-              className="bg-pink-600 text-white rounded-lg shadow-sm p-3  w-[140px] font-medium font-custom absolute top-[-20px] left-7"
-            >
-              Instructions
-            </div>
-            <div className="p-5 pt-10" style={{ marginTop: 20 }}>
-              <div className="text-lg ml-2">{recipe.method}</div>
-            </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

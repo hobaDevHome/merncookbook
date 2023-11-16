@@ -3,8 +3,10 @@ import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import axios from "axios";
 import Navbar from "./Navbar";
-import cover from "../../images/cover.jpg";
+import cover2 from "../../images/cover2.jpg";
 import home2 from "../../images/home2.png";
+import damn from "../../images/damn.png";
+import dam2 from "../../images/dam2.jpg";
 
 const url = "http://localhost:4000/recipes";
 // const url = process.env.REACT_APP_MONGO_URI;
@@ -27,21 +29,18 @@ function RecipeHome() {
     <div className="continer max-w-screen-xl mx-auto">
       <Navbar />
       <div className="flex flex-col ">
-        <div className="relative">
+        <div className="flex justify-between">
           <img
-            src={home2}
+            src={damn}
             alt=""
-            style={{ width: "100%", height: 300 }}
-            className="w-11/12 mx-auto object-contain  mt-2 rounded-xl"
+            className="object-contain w-[200px] mt-2 rounded-xl"
           />
-          <div
-            style={{ backgroundColor: "rgba(82, 82, 91, 0.7)" }}
-            className="absolute top-6 right-20 font-custom text-3xl  text-white p-5 rounded-lg opacity-90 "
-          >
-            <p style={{ fontSize: 30 }}>My Cook book</p>
-          </div>
+          <img
+            src={dam2}
+            alt=""
+            className="object-contain  h-[250px]  mt-2 rounded-xl"
+          />
         </div>
-
         <div className="col s3">
           <RecipeList recipes={recipes} />
         </div>

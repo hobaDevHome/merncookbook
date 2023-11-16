@@ -66,7 +66,7 @@ const RecipeList = ({ recipes }) => {
   };
 
   return (
-    <div className=" mx-auto w-11/12 mt-5">
+    <div className=" mx-auto w-full mt-5">
       {!location.pathname.includes("fav") && (
         <div className="flex justify-between">
           <div className="flex items-center mb-5">
@@ -132,8 +132,15 @@ const RecipeCard = ({ item, deleteRecipe }) => {
       });
   };
 
+  const cats = {
+    carb: "Low Carb",
+    fat: "Low Fat",
+    all: "General",
+    veg: "Vegetarian",
+  };
+
   return (
-    <div className="bg-gray-200 w-[280px] m-3 p-4 rounded relative">
+    <div className="bg-gray-100 w-[280px] m-3 p-4 rounded relative">
       {!location.pathname.includes("fav") && (
         <img
           src={isFaved ? favfill : favempty}
@@ -151,26 +158,18 @@ const RecipeCard = ({ item, deleteRecipe }) => {
             style={{ width: "100%", height: 200, objectFit: "cover" }}
           />
         </div>
-        <p className="text-center text-lg font-custom font-bold mt-2 ">
-          {item.title}
-        </p>
-        <div className="flex items-center mt-3">
-          <div>
-            <img src="person.png" alt="" className=" w-5" />
-          </div>
-          <div className="text-lg ml-2">
-            {item.servings ? item.servings : "-"} Serving
-          </div>
+        <div
+          style={{
+            backgroundColor: "#ffcb3e",
+            fontSize: 14,
+            padding: 5,
+            width: 80,
+          }}
+        >
+          {cats[item.category]}
         </div>
-        <div className="flex items-center mt-3">
-          <div>
-            <img src="clock.png" alt="" className=" w-5" />
-          </div>
-          <div className="text-lg ml-2">
-            {" "}
-            {item.time ? item.time : "-"} min.
-          </div>
-        </div>
+        <p className=" text-lg font-custom font-bold mt-2 ">{item.title}</p>
+
         {item.hardness && (
           <div className="flex items-center mt-3 mb-5">
             {new Array(item.hardness).fill(0).map((e, index) => (
