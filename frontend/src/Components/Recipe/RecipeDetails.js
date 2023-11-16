@@ -131,8 +131,11 @@ const RecipeDetails = () => {
               }}
             ></div>
             <div>
-              <div className="p-5 " style={{ marginTop: 10, width: "100%" }}>
-                <div className="text-lg ml-2">{recipe.method}</div>
+              <div
+                className="pl-3 pr-2"
+                style={{ marginTop: 10, width: "100%" }}
+              >
+                <div className="text-lg ">{recipe.method}</div>
               </div>
             </div>
           </div>
@@ -143,7 +146,6 @@ const RecipeDetails = () => {
             src={recipe.imageURL ? recipe.imageURL : home1}
             alt=""
             className="rounded-lg mt-2 mx-auto "
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
           <div
             style={{
@@ -180,7 +182,7 @@ const RecipeDetails = () => {
           >
             {cats[recipe.category]}
           </div>
-          <div className="absolute bottom-2 right-10 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
+          <div className="absolute top-52 right-0 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
             <div className="flex items-center mt-3 mb-2">
               <div>
                 <img src={person} alt="" className=" w-5" />
@@ -200,7 +202,7 @@ const RecipeDetails = () => {
             </div>
           </div>
           {recipe.hardness && (
-            <div className="absolute bottom-24 right-10 border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
+            <div className="absolute top-32 right-0  border shadow-lg bg-white flex p-4 rounded-3xl h-[60px] w-[280px] justify-center  ">
               <p style={{ marginRight: 5 }}>Difficulty:</p>
               <div className="flex items-center mt-3 mb-5">
                 {new Array(recipe.hardness).fill(0).map((e, index) => (
