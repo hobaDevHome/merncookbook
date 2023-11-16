@@ -10,6 +10,7 @@ import fam from "../../images/family.jpg";
 
 // const url = "http://localhost:4000/recipes";
 const url = "https://merncookbook-front.vercel.app/recipes";
+// const url = "https://merncookbook-front.vercel.app/api/v1/recipes";
 
 function RecipeHome() {
   const [recipes, setRecipes] = useState([]);

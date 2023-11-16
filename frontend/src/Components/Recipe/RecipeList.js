@@ -9,8 +9,8 @@ import del from "../../images/del2.png";
 import placeHolder from "../../images/recipePlaceHodler.jpg";
 import { getStorage, ref, deleteObject } from "firebase/storage";
 
-const url = "http://localhost:4000/recipe/";
-const favurl = "http://localhost:4000/fav/";
+const url = "https://merncookbook-front.vercel.app/recipe/";
+const favurl = "https://merncookbook-front.vercel.app/fav/";
 
 const RecipeList = ({ recipes }) => {
   const [currentList, setcurrentList] = useState([]);
@@ -35,6 +35,9 @@ const RecipeList = ({ recipes }) => {
     }
   }, [currentCat]);
 
+  if (!currentList || currentList.length <= 0) {
+    return <h1>hi</h1>;
+  }
   const deleteRecipe = (id) => {
     axios
       .delete(`${url}${id}`)
