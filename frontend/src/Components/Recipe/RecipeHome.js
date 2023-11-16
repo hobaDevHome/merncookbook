@@ -3,10 +3,9 @@ import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 import axios from "axios";
 import Navbar from "./Navbar";
-import cover2 from "../../images/cover2.jpg";
-import home2 from "../../images/home2.png";
+
 import damn from "../../images/damn.png";
-import dam2 from "../../images/dam2.jpg";
+
 import fam from "../../images/family.jpg";
 
 const url = "http://localhost:4000/recipes";

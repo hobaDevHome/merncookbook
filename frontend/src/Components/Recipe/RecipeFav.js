@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import RecipeList from "./RecipeList";
 
 // @ts-ignore
-import fav from "../../images/fav.jpg";
+import fav from "../../images/favs3.webp";
 import damn from "../../images/damn.png";
 import axios from "axios";
 import Navbar from "./Navbar";
